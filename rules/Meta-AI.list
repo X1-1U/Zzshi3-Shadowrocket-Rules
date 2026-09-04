@@ -1,0 +1,9 @@
+# Zzshi3 Shadowrocket source 09
+# Policy: Meta AI
+
+# Source: liandu2024/clash/list/MetaAi.list
+DOMAIN-SUFFIX,meta.ai
+DOMAIN-SUFFIX,metademolab.com
+DOMAIN-SUFFIX,genspark.ai
+DOMAIN-SUFFIX,manus.im
+DOMAIN-SUFFIX,skywork.ai

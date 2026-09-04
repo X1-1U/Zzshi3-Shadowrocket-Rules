@@ -1,0 +1,7 @@
+# Zzshi3 Shadowrocket source 08
+# Policy: Claude
+
+# Source: blackmatrix7/ios_rule_script/rule/Clash/Claude/Claude.list
+DOMAIN,cdn.usefathom.com
+DOMAIN-SUFFIX,anthropic.com
+DOMAIN-SUFFIX,claude.ai

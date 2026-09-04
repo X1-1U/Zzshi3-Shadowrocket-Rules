@@ -1,0 +1,8 @@
+# Zzshi3 Shadowrocket source 46
+# Policy: Games
+
+# Source: blackmatrix7/ios_rule_script/rule/Clash/PlayStation/PlayStation.list
+DOMAIN-SUFFIX,playstation.com
+DOMAIN-SUFFIX,playstation.net
+DOMAIN-SUFFIX,playstationnetwork.com
+DOMAIN-SUFFIX,sonyentertainmentnetwork.com

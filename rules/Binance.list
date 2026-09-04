@@ -1,0 +1,16 @@
+# Zzshi3 Shadowrocket source 29
+# Policy: Crypto
+
+# Source: blackmatrix7/ios_rule_script/rule/Shadowrocket/Binance/Binance.list
+DOMAIN-SUFFIX,appsflayer.com
+DOMAIN-SUFFIX,binance.cloud
+DOMAIN-SUFFIX,binance.com
+DOMAIN-SUFFIX,binance.me
+DOMAIN-SUFFIX,binancecnt.com
+DOMAIN-SUFFIX,binancefuture.com
+DOMAIN-SUFFIX,bnappzh.co
+DOMAIN-SUFFIX,bnbstatic.com
+DOMAIN-SUFFIX,bnbzh.ac
+DOMAIN-SUFFIX,bntrace.com
+DOMAIN-SUFFIX,saasexch.cc
+DOMAIN-SUFFIX,saasexch.com

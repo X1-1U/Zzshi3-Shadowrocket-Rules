@@ -1,5 +1,0 @@
-# Zzshi3 Shadowrocket rules 14
-# Policy: Grok
-
-# Source: liandu2024/clash/list/Grok.list
-DOMAIN-SUFFIX,grok.com

@@ -1,0 +1,5 @@
+# Zzshi3 Shadowrocket source 13
+# Policy: Groq
+
+# Source: MetaCubeX/meta-rules-dat/geo/geosite/classical/groq.list
+DOMAIN-SUFFIX,groq.com

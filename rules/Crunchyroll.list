@@ -1,0 +1,7 @@
+# Zzshi3 Shadowrocket source 37
+# Policy: Crunchyroll
+
+# Source: liandu2024/clash/list/Crunchyroll.list
+DOMAIN-SUFFIX,crunchyroll.com
+DOMAIN-SUFFIX,crunchyrollcdn.com
+DOMAIN-SUFFIX,crunchyrollsvc.com

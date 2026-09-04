@@ -1,0 +1,9 @@
+# Zzshi3 Shadowrocket source 45
+# Policy: Games
+
+# Source: blackmatrix7/ios_rule_script/rule/Clash/UBI/UBI.list
+DOMAIN-SUFFIX,ubi.com
+DOMAIN-SUFFIX,ubisoft-orbit-savegames.s3.amazonaws.com
+DOMAIN-SUFFIX,ubisoft-uplay-savegames.s3.amazonaws.com
+DOMAIN-SUFFIX,ubisoft.com
+DOMAIN-SUFFIX,uplay.com

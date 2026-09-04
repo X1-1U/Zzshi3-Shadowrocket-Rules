@@ -1,0 +1,7 @@
+# Zzshi3 Shadowrocket source 27
+# Policy: Crypto
+
+# Source: blackmatrix7/ios_rule_script/rule/Shadowrocket/OKX/OKX.list
+DOMAIN-SUFFIX,okex.com
+DOMAIN-SUFFIX,oklink.com
+DOMAIN-SUFFIX,okx.com

@@ -18,8 +18,66 @@ SOURCE_FILE = ROOT / "sources.conf"
 RULES_DIR = ROOT / "rules"
 OUTPUT_CONF = ROOT / "Shadowrocket-Rules.conf"
 EXPECTED_SOURCES = 56
-EXPECTED_GROUPS = 44
+EXPECTED_FILES = 56
 MINIMUM_RULES = 150_000
+OUTPUT_NAMES = [
+    "Custom-Proxy.list",
+    "Adult.list",
+    "Media-Server.list",
+    "Custom-Direct.list",
+    "Test.list",
+    "Block.list",
+    "ChatGPT.list",
+    "Claude.list",
+    "Meta-AI.list",
+    "Perplexity.list",
+    "Copilot.list",
+    "Gemini.list",
+    "Groq.list",
+    "Grok.list",
+    "Twitch.list",
+    "Reddit.list",
+    "GitHub.list",
+    "Telegram.list",
+    "Telegram-IP.list",
+    "WhatsApp.list",
+    "Facebook.list",
+    "Apple.list",
+    "Apple-CN.list",
+    "Apple-Custom.list",
+    "Microsoft.list",
+    "Crypto.list",
+    "OKX.list",
+    "Bybit.list",
+    "Binance.list",
+    "BiliBili.list",
+    "YouTube.list",
+    "TikTok.list",
+    "Netflix.list",
+    "Netflix-IP.list",
+    "Disney.list",
+    "Amazon.list",
+    "Crunchyroll.list",
+    "Popcorn.list",
+    "HBO.list",
+    "Spotify.list",
+    "Steam.list",
+    "Epic.list",
+    "EA.list",
+    "Blizzard.list",
+    "Ubisoft.list",
+    "PlayStation.list",
+    "Nintendo.list",
+    "Google.list",
+    "Google-IP.list",
+    "Nvidia.list",
+    "Proxy.list",
+    "Global.list",
+    "Direct.list",
+    "China.list",
+    "China-IP.list",
+    "Private.list",
+]
 
 
 @dataclass(frozen=True)
@@ -106,52 +164,34 @@ def fetch(source: Source) -> list[str]:
     return rules
 
 
-def consecutive_groups(sources: list[Source]) -> list[list[Source]]:
-    groups: list[list[Source]] = []
-    for source in sources:
-        if groups and (groups[-1][0].policy, groups[-1][0].no_resolve) == (
-            source.policy,
-            source.no_resolve,
-        ):
-            groups[-1].append(source)
-        else:
-            groups.append([source])
-    if len(groups) != EXPECTED_GROUPS:
-        raise ValueError(f"Expected {EXPECTED_GROUPS} consecutive groups, found {len(groups)}")
-    return groups
-
-
 def build() -> None:
     sources = parse_sources()
     downloaded = {source.url: fetch(source) for source in sources}
-    groups = consecutive_groups(sources)
+    if len(OUTPUT_NAMES) != EXPECTED_FILES or len(set(OUTPUT_NAMES)) != EXPECTED_FILES:
+        raise ValueError("OUTPUT_NAMES must contain 56 unique filenames")
 
     RULES_DIR.mkdir(parents=True, exist_ok=True)
     expected_paths: set[Path] = set()
     total_rules = 0
     crypto_rules: list[str] = []
 
-    for index, group in enumerate(groups, 1):
-        first = group[0]
-        path = RULES_DIR / f"Zzshi3-SR-R{index:02d}.list"
+    for index, (source, filename) in enumerate(zip(sources, OUTPUT_NAMES), 1):
+        path = RULES_DIR / filename
         expected_paths.add(path)
         lines = [
-            f"# Zzshi3 Shadowrocket rules {index:02d}",
-            f"# Policy: {first.policy}",
+            f"# Zzshi3 Shadowrocket source {index:02d}",
+            f"# Policy: {source.policy}",
             "",
+            f"# Source: {source_label(source.url)}",
         ]
-        for source_index, source in enumerate(group):
-            if source_index:
-                lines.append("")
-            lines.append(f"# Source: {source_label(source.url)}")
-            rules = downloaded[source.url]
-            lines.extend(rules)
-            total_rules += len(rules)
-            if first.policy == "Crypto":
-                crypto_rules.extend(rules)
+        rules = downloaded[source.url]
+        lines.extend(rules)
+        total_rules += len(rules)
+        if source.policy == "Crypto":
+            crypto_rules.extend(rules)
         path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
-    for stale in RULES_DIR.glob("Zzshi3-SR-R*.list"):
+    for stale in RULES_DIR.glob("*.list"):
         if stale not in expected_paths:
             stale.unlink()
 
@@ -161,13 +201,12 @@ def build() -> None:
     config_lines = [
         "[Rule]",
         "# Zzshi3 Shadowrocket self-hosted rules",
-        f"# {EXPECTED_SOURCES} unique upstream sources merged into {EXPECTED_GROUPS} ordered files.",
+        f"# {EXPECTED_SOURCES} unique upstream sources in {EXPECTED_FILES} ordered files.",
     ]
-    for index, group in enumerate(groups, 1):
-        first = group[0]
-        suffix = ",no-resolve" if first.no_resolve else ""
+    for source, filename in zip(sources, OUTPUT_NAMES):
+        suffix = ",no-resolve" if source.no_resolve else ""
         config_lines.append(
-            f"RULE-SET,{base}/Zzshi3-SR-R{index:02d}.list,{first.policy}{suffix}"
+            f"RULE-SET,{base}/{filename},{source.policy}{suffix}"
         )
     config_lines.append("FINAL,其他")
     OUTPUT_CONF.write_text("\n".join(config_lines) + "\n", encoding="utf-8")
@@ -180,7 +219,7 @@ def build() -> None:
         raise RuntimeError(f"Crypto validation failed; missing: {', '.join(missing)}")
 
     print(
-        f"Generated {EXPECTED_GROUPS} files with {total_rules} rules "
+        f"Generated {EXPECTED_FILES} files with {total_rules} rules "
         f"from {EXPECTED_SOURCES} unique upstream sources."
     )
 

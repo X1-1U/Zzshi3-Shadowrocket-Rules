@@ -1,6 +1,0 @@
-# Zzshi3 Shadowrocket rules 11
-# Policy: Copilot
-
-# Source: liandu2024/clash/list/Copilot.list
-DOMAIN,copilot.microsoft.com
-DOMAIN-SUFFIX,bing.com
