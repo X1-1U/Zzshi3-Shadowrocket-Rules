@@ -1,0 +1,9 @@
+# Zzshi3 Shadowrocket rules 10
+# Policy: Perplexity
+
+# Source: MetaCubeX/meta-rules-dat/geo/geosite/classical/perplexity.list
+DOMAIN,ppl-ai-file-upload.s3.amazonaws.com
+DOMAIN,pplx-res.cloudinary.com
+DOMAIN-SUFFIX,perplexity.ai
+DOMAIN-SUFFIX,perplexity.com
+DOMAIN-SUFFIX,pplx.ai
